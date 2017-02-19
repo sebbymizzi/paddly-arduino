@@ -10,3 +10,6 @@ platformio init --board=uno
 platformio run --target upload
 
 platformio lib install "Keypad"
+platformio lib install "LiquidCrystal"
+
+platformio run --target upload
