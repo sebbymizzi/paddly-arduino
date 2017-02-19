@@ -103,6 +103,7 @@ void loop() {
       locker[0] = customKey;
       lcd.print(customKey);
       lcd.print(" ..OK");
+      Serial.print(String(locker));
       delay(1000);
       requestPinCode();
       return;
@@ -113,8 +114,13 @@ void loop() {
       lcd.print(customKey);
       if(i == 3) {
         //send to raspberry pi
-        
-        //requestLockerInput();
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Please wait...");
+        Serial.print(String(pin));
+        delay(2000);
+
+        requestLockerInput();
       }
       i++;
       return;
