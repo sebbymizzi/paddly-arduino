@@ -7,6 +7,7 @@ LiquidCrystal lcd(13,12,11,10,9,8);
 void requestLockerInput();
 
 void setup() {
+  Serial.begin(9600);
   lcd.begin(16,4);
 //  lcd.setCursor (0,1);
 //  lcd.print("     HELLO");
@@ -103,7 +104,7 @@ void loop() {
       locker[0] = customKey;
       lcd.print(customKey);
       lcd.print(" ..OK");
-      Serial.print(String(locker));
+      Serial.println(String(locker[0]));
       delay(1000);
       requestPinCode();
       return;
@@ -117,7 +118,7 @@ void loop() {
         lcd.clear();
         lcd.setCursor(0, 0);
         lcd.print("Please wait...");
-        Serial.print(String(pin));
+        Serial.println(String(pin));
         delay(2000);
 
         requestLockerInput();
