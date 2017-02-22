@@ -9,6 +9,7 @@ void requestLockerInput();
 void setup() {
   Serial.begin(9600);
   lcd.begin(16,4);
+  pinMode(15, OUTPUT);
 //  lcd.setCursor (0,1);
 //  lcd.print("     HELLO");
 //  delay (3000);
@@ -24,13 +25,15 @@ void setup() {
   requestLockerInput();
 }
 
-int locker1 = 0;
-int locker2 = 1;
-int locker3 = 2;
-int locker4 = 3;
+int locker1 = 14;
+int locker2 = 15;
+int locker3 = 16;
+int locker4 = 17;
+int locker_delay = 1000;
 
 bool requestingLocker;
 bool requestingPin;
+bool isWaitingForPi;
 
 char pin[4];
 char locker[1];
@@ -52,6 +55,7 @@ byte colPins[COLS] = {3, 2, 1, 0}; //connect to the column pinouts of the keypad
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
 
 void requestLockerInput() {
+  isWaitingForPi = false;
   lcd.clear();
   requestingPin = false;
   requestingLocker = true;
@@ -75,29 +79,47 @@ void requestPinCode() {
 }
 
 void turnOnLocker1() {
-  analogWrite(locker1, 255);
-  delay(1000);
-  analogWrite(locker1, 255);
+  digitalWrite(locker1, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker1, LOW);
 }
 void turnOnLocker2() {
-  analogWrite(locker2, 255);
-  delay(1000);
-  analogWrite(locker2, 255);
+  digitalWrite(locker2, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker2, LOW);
 }
 void turnOnLocker3() {
-  analogWrite(locker3, 255);
-  delay(1000);
-  analogWrite(locker3, 255);
+  digitalWrite(locker3, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker3, LOW);
 }
 void turnOnLocker4() {
-  analogWrite(locker4, 255);
-  delay(1000);
-  analogWrite(locker4, 255);
+  digitalWrite(locker4, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker4, LOW);
 }
 
 
 void loop() {
   // put your main code here, to run repeatedly:
+  if(isWaitingForPi == true) {
+    if (Serial.available()) {
+      int reply = Serial.read() -'0';
+      if(reply == 1) {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("LOCKER OPEN");
+      } else {
+        lcd.clear();
+        lcd.setCursor(0,0);
+        lcd.print("INCORRECT PIN");
+      }
+      delay(3000);
+      requestLockerInput();
+    }
+    return;
+  }
+    
   customKey = customKeypad.getKey();
   if (customKey && customKey != 'o') { //o meaning that this key came from previous locker input
     if(requestingLocker == true) {
@@ -119,9 +141,7 @@ void loop() {
         lcd.setCursor(0, 0);
         lcd.print("Please wait...");
         Serial.println(String(pin));
-        delay(2000);
-
-        requestLockerInput();
+        isWaitingForPi = true;
       }
       i++;
       return;
