@@ -6,10 +6,23 @@ LiquidCrystal lcd(13,12,11,10,9,8);
 
 void requestLockerInput();
 
+int locker1 = 14;
+int locker2 = 15;
+int locker3 = 16;
+int locker4 = 17;
+
 void setup() {
   Serial.begin(9600);
   lcd.begin(16,4);
-  pinMode(15, OUTPUT);
+  pinMode(locker1, OUTPUT);
+  pinMode(locker2, OUTPUT);
+  pinMode(locker3, OUTPUT);
+  pinMode(locker4, OUTPUT);
+  
+  digitalWrite(locker1, HIGH);
+  digitalWrite(locker2, HIGH);
+  digitalWrite(locker3, HIGH);
+  digitalWrite(locker4, HIGH);
 //  lcd.setCursor (0,1);
 //  lcd.print("     HELLO");
 //  delay (3000);
@@ -25,11 +38,7 @@ void setup() {
   requestLockerInput();
 }
 
-int locker1 = 14;
-int locker2 = 15;
-int locker3 = 16;
-int locker4 = 17;
-int locker_delay = 1000;
+int locker_delay = 5000;
 
 bool requestingLocker;
 bool requestingPin;
@@ -79,24 +88,24 @@ void requestPinCode() {
 }
 
 void turnOnLocker1() {
-  digitalWrite(locker1, HIGH);
-  delay(locker_delay);
   digitalWrite(locker1, LOW);
+  delay(locker_delay);
+  digitalWrite(locker1, HIGH);
 }
 void turnOnLocker2() {
-  digitalWrite(locker2, HIGH);
-  delay(locker_delay);
   digitalWrite(locker2, LOW);
+  delay(locker_delay);
+  digitalWrite(locker2, HIGH);
 }
 void turnOnLocker3() {
-  digitalWrite(locker3, HIGH);
-  delay(locker_delay);
   digitalWrite(locker3, LOW);
+  delay(locker_delay);
+  digitalWrite(locker3, HIGH);
 }
 void turnOnLocker4() {
-  digitalWrite(locker4, HIGH);
-  delay(locker_delay);
   digitalWrite(locker4, LOW);
+  delay(locker_delay);
+  digitalWrite(locker4, HIGH);
 }
 
 
@@ -108,7 +117,23 @@ void loop() {
       if(reply == 1) {
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("LOCKER OPEN");
+        String lockerno = String(locker[0]);
+        if(lockerno == "1") {
+            lcd.print("LOCKER 1 OPEN");
+            turnOnLocker1();
+        }
+        if(lockerno == "2") {
+            lcd.print("LOCKER 2 OPEN");
+            turnOnLocker1();
+        }
+        if(lockerno == "3") {
+            lcd.print("LOCKER 3 OPEN");
+            turnOnLocker1();
+        }
+        if(lockerno == "4") {
+            lcd.print("LOCKER 4 OPEN");
+            turnOnLocker1();
+        }
       } else {
         lcd.clear();
         lcd.setCursor(0,0);
