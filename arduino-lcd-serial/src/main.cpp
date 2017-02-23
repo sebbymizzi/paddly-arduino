@@ -124,15 +124,15 @@ void loop() {
         }
         if(lockerno == "2") {
             lcd.print("LOCKER 2 OPEN");
-            turnOnLocker1();
+            turnOnLocker2();
         }
         if(lockerno == "3") {
             lcd.print("LOCKER 3 OPEN");
-            turnOnLocker1();
+            turnOnLocker3();
         }
         if(lockerno == "4") {
             lcd.print("LOCKER 4 OPEN");
-            turnOnLocker1();
+            turnOnLocker4();
         }
       } else {
         lcd.clear();
