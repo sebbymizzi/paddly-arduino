@@ -49,16 +49,16 @@ char locker[1];
 char pass[4],pass1[4];
 int i=0;
 char customKey=0;
-const byte ROWS = 4; //four rows
+const byte ROWS = 5; //four rows
 const byte COLS = 4; //four columns
 char hexaKeys[ROWS][COLS] = {
-  {'1','2','3','A'},
-  {'4','5','6','B'},
-  {'7','8','9','C'},
-  {'*','0','#','D'}
+  {'1','2','3'},
+  {'4','5','6'},
+  {'7','8','9'},
+  {'*','0','#'}
 };
-byte rowPins[ROWS] = {7, 6, 5, 4}; //connect to the row pinouts of the keypad
-byte colPins[COLS] = {3, 2, 1, 0}; //connect to the column pinouts of the keypad
+byte rowPins[ROWS] = {0, 6, 5, 4}; //connect to the row pinouts of the keypad
+byte colPins[COLS] = {7, 2, 3}; //connect to the column pinouts of the keypad
 
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
