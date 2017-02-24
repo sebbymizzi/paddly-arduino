@@ -20,9 +20,9 @@ void setup() {
   pinMode(locker4, OUTPUT);
   
   digitalWrite(locker1, HIGH);
-  digitalWrite(locker2, HIGH);
-  digitalWrite(locker3, HIGH);
-  digitalWrite(locker4, HIGH);
+  digitalWrite(locker2, LOW);
+  digitalWrite(locker3, LOW);
+  digitalWrite(locker4, LOW);
 //  lcd.setCursor (0,1);
 //  lcd.print("     HELLO");
 //  delay (3000);
@@ -93,19 +93,19 @@ void turnOnLocker1() {
   digitalWrite(locker1, HIGH);
 }
 void turnOnLocker2() {
-  digitalWrite(locker2, LOW);
-  delay(locker_delay);
   digitalWrite(locker2, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker2, LOW);
 }
 void turnOnLocker3() {
-  digitalWrite(locker3, LOW);
-  delay(locker_delay);
   digitalWrite(locker3, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker3, LOW);
 }
 void turnOnLocker4() {
-  digitalWrite(locker4, LOW);
-  delay(locker_delay);
   digitalWrite(locker4, HIGH);
+  delay(locker_delay);
+  digitalWrite(locker4, LOW);
 }
 
 
