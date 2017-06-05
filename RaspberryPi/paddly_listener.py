@@ -10,29 +10,24 @@ pin="0000";
 
 def checkData():
     print("checking");
-    with open('data.json') as json_data:
+    with open('data_booking.json') as json_data:
         data = json.load(json_data)
         pp.pprint(data);
-        found = False;
+        found = 0;
 
-        lockername = "SAM00" + locker;
-        print("testing for locker " + lockername);
+        print("testing for authId " + locker);
         print("testing for pin " + pin);
 
         for item in data:
-            isbooked = item["booked"];
-            islocker = item["locker"];
+            isbooked = item["authId"];
+            islocker = item["authPin"];
             ispincode = str(item["pincode"]);
-            if isbooked == True and islocker == lockername and ispincode == pin:
-                print("found");
-                found = True;
-        
-        if found:
-            ser.write(bytes('1', 'ascii'));
-            print("OK")
-        else:
-            ser.write(bytes('2', 'ascii'));
-            print("NOT OK");
+            if islocker == locker and ispincode == pin:
+                print("found")
+                found = item["locker"]
+
+	ser.write(bytes(found, 'ascii'))
+	print("OK")
 
 
 while 1 :
